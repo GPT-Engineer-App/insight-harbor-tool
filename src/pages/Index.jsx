@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { Search, BarChart2, Newspaper, TrendingUp } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,17 +11,8 @@ import CompanyNews from '../components/CompanyNews';
 import CompanyMetrics from '../components/CompanyMetrics';
 
 const fetchCompanyData = async (companyName) => {
-  // Simulated API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return {
-    name: companyName,
-    financials: { revenue: 1000000, profit: 500000, growth: 0.15 },
-    news: [
-      { id: 1, title: 'Company expands to new markets', date: '2023-04-01' },
-      { id: 2, title: 'Quarterly results exceed expectations', date: '2023-03-15' },
-    ],
-    metrics: { employees: 5000, offices: 20, founded: 2000 },
-  };
+  const response = await axios.get(`http://localhost:3001/api/company/${companyName}`);
+  return response.data;
 };
 
 const Index = () => {
